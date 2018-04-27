@@ -34,6 +34,25 @@ function createApi(api, opts = {}) {
         null, null,
         result.$createListener(callback)
       )
+    },
+
+    /**
+     * get all branch commits
+     *
+     * @param {String} repo owner
+     * @param {String} slug (name) of the repo
+     *
+     * See: https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/commits
+     */
+    getCommitsOnBranch(username, repoSlug, branch, callback) {
+      validateArgs('getBranchCommits', arguments, 3)
+      const uri = buildUri(username, repoSlug, 'commits',branch)
+      console.log(uri)
+      api.get(
+        uri,
+        null, null,
+        result.$createListener(callback)
+      )
     }
   }
 
@@ -44,6 +63,7 @@ function createApi(api, opts = {}) {
 module.exports = {
   createApi,
   methods: [
-    'getAll'
+    'getAll',
+    'getBranchCommits'
   ]
 }
